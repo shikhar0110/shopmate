@@ -18,9 +18,12 @@ if (fs.existsSync(configAbsPath)) {
   const filePreview = fs.readFileSync(configAbsPath, "utf8").split("\n").slice(0, 20).join("\n");
 
 }
+import pool from "./database/db.js";
 
-import app from "./app.js";
-import { v2 as cloudinary } from "cloudinary";
+
+const { default: app } = await import("./app.js");
+const cloudinaryModule = await import("cloudinary");
+const { v2: cloudinary } = cloudinaryModule;
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
@@ -31,3 +34,8 @@ cloudinary.config({
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
+
+const result = await pool.query(
+  "SELECT current_database(), inet_server_addr()"
+);
+console.log(result.rows[0]);
