@@ -35,8 +35,6 @@ const Sidebar = () => {
     <>
       {/* overlay  */}
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => dispatch(toggleSidebar())} />
-
-
       {/* Sidebar */}
       <div className="fixed left-0 top-0 h-full w-80 z-50 glass-panel animate-slide-in-left">
         <div className="flext items-center justify-center p-6 border-b border-[hsla(var(--glass-border))]">
